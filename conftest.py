@@ -70,13 +70,3 @@ def make_auth_headers():
         assert token, f"no token: {r.text}"
         return {"Authorization": f"Bearer {token}", "Accept": "application/json"}
     return _make
-
-@pytest.fixture
-def auth_headers_user1(make_auth_headers):
-    email = generate_valid_unique_email("yandexpr.ru")
-    return make_auth_headers(email, "Qwer1234!", "Owner")
-
-@pytest.fixture
-def auth_headers_user2(make_auth_headers):
-    email = generate_valid_unique_email("yandexpr.ru")
-    return make_auth_headers(email, "Qwer1234!", "Stranger")

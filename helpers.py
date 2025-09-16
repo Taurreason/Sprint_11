@@ -4,7 +4,6 @@ from datetime import datetime
 from pathlib import Path
 import io
 import requests
-import allure
 
 
 from data import *
@@ -31,7 +30,6 @@ def image_file(local_path: Path, fallback_url: str | None = None, mime="image/jp
 def generate_random_string(length):
     return ''.join(random.choices(string.ascii_lowercase, k=length))
 
-
 def build_user_payload(email, password, name):
     return {
         "email": email,
@@ -45,25 +43,3 @@ def generate_valid_unique_email(domain='yandexpr.ru'):
 
 def generate_invalid_unique_email(length=8):
     return ''.join(random.choices(string.ascii_lowercase, k=length))
-
-def headers_no_ct(h):
-    return {k: v for k, v in h.items() if k.lower() != "content-type"}
-
-def cleanup_delete(ann_id, headers):
-    try:
-        requests.delete(site.delete_listing(ann_id), headers=headers_no_ct(headers), timeout=15)
-    except Exception:
-        pass
-
-def create_listing_as_owner(headers):
-    files = image_file(IMG_PATH, fallback_url=IMG_FALLBACK_URL)
-    mheaders = headers_for_multipart(headers)
-
-    with allure.step("Владелец создаёт объявление"):
-        resp = requests.post(site.create_listing, data=pancakes_data, files=files, headers=mheaders)
-        assert resp.status_code == 201, f"{resp.status_code} {resp.text}"
-    return resp.json()["id"]
-
-
-def drop_ct(h):  # чтобы multipart/формы не ломались
-    return {k: v for k, v in h.items() if k.lower() != "content-type"}
