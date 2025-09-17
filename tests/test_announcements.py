@@ -1,9 +1,14 @@
-import allure, pytest
+import allure
+import pytest
 import requests
 
-from service import *
-from data import *
-from helpers import *
+from helpers import (
+    headers_for_multipart,
+    image_file,
+    generate_valid_unique_email,
+)
+from service import site, IMG_PATH, IMG_FALLBACK_URL
+from data import pancakes_data, pancakes_data_edit, img_path
 
 
 @allure.epic("Объявления")
@@ -15,7 +20,7 @@ class TestAnnouncement:
     def test_create_announcement(self, signup_signin_user):
 
         headers = headers_for_multipart(signup_signin_user)
-        files = image_file(IMG_PATH, fallback_url=IMG_FALLBACK_URL)
+        files = image_file(img_path, fallback_url=IMG_FALLBACK_URL)
 
         with allure.step("Создаем объявление"), img_path.open("rb") as f:
             ann_response = requests.post(site.create_listing, data=pancakes_data, headers=headers, files=files)

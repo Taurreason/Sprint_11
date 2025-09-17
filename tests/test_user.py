@@ -1,7 +1,7 @@
 import allure, pytest
 import requests
 
-from service import *
+from service import site
 
 
 @allure.epic("Создание пользователя")

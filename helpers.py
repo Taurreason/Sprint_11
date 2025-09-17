@@ -1,14 +1,10 @@
+import io
 import random
 import string
 from datetime import datetime
 from pathlib import Path
-import io
+
 import requests
-
-
-from data import *
-from service import *
-
 
 
 def headers_for_multipart(headers: dict) -> dict:
