@@ -1,0 +1,1 @@
+{"uuid": "b9dcc5e7-2ed7-45fe-ba5e-7d48b67995df", "children": ["139fd04a-8e99-4b2d-a158-989a24f6672d"], "befores": [{"name": "get_id_create_announcement", "status": "passed", "steps": [{"name": "Создаем объявление", "status": "passed", "start": 1757313065396, "stop": 1757313065906}], "start": 1757313064951, "stop": 1757313065906}], "start": 1757313064951, "stop": 1757313066207}
